@@ -1,19 +1,30 @@
+#配置dev环境
 spring:
-  application:
-    name: kkbmsc-consumer-depart #指定微服务对外暴露的名称
+  profiles: dev
+  application: abcms-eurekaServer-config
+server:
+  port: 8400
 eureka:
+  instance:
+    hostname: eureka8400.com
   client:
-    service-url: #暴露服务中心地址
-      defaultZone: http://localhost:8000/eureka
-#      开启feign对hystrix的支持
-feign:
-  hystrix:
-    enabled: false
-#    设置服务熔断时限 默认为5000ms
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka8400:8400/eureka
+---
+#配置test环境
+#配置dev环境
+spring:
+  profiles: test
+  application: abcms-eurekaServer-config
+server:
+  port: 8500
+eureka:
+  instance:
+    hostname: eureka8500.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka8500:8500/eureka
